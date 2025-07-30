@@ -6,11 +6,12 @@ public:
             int dig = x%10;
             rev = rev*10 + dig;
             x /= 10;
+
             if (rev > INT32_MAX || rev < INT32_MIN) {
                 return 0;
             }
         }
-        return rev;
+        return static_cast<int>(rev);
     }
 
 };
