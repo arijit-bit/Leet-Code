@@ -15,16 +15,17 @@
  */
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        backtrack(list, root);
-        return list;
-    }
-    private void backtrack(List<Integer> list, TreeNode root){
-        if(root==null){
-            return;
+        ArrayList<Integer> ans = new ArrayList<>();
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode curr = root;
+        if(root==null)return ans;
+        st.push(curr);
+        while(!st.isEmpty()){
+            curr = st.pop();
+            ans.addFirst(curr.val);
+            if(curr.left != null){st.push(curr.left);}
+            if(curr.right != null){st.push(curr.right);}
         }
-        backtrack(list, root.left);
-        backtrack(list, root.right);
-        list.add(root.val);
+        return ans;
     }
 }
