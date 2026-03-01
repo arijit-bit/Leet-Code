@@ -1,18 +1,22 @@
 class Solution {
-    long prev = Long.MIN_VALUE;
 
     public boolean isValidBST(TreeNode root) {
-        return inorder(root);
+        ArrayList<Integer> ans =  new ArrayList<>();
+        inorder(root, ans);
+        for(int i=0; i<ans.size()-1; i++){
+            if(ans.get(i) >= ans.get(i+1)){
+                return false;
+            }
+        }
+        return true;
     }
 
-    private boolean inorder(TreeNode root) {
-        if (root == null) return true;
+    private void inorder(TreeNode root, ArrayList<Integer> ans) {
+        if (root == null) return;
+        inorder(root.left, ans);
+        ans.add(root.val);
+        inorder(root.right, ans);
 
-        if (!inorder(root.left)) return false;
-
-        if (root.val <= prev) return false;
-        prev = root.val;
-
-        return inorder(root.right);
+        
     }
 }
