@@ -15,38 +15,23 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        boolean ans = true;
-        while(!q.isEmpty()){
-            int level = q.size(); //level span
-            ArrayList<Integer> arr = new ArrayList<>();
-            for(int i=0; i<level; i++){
-                TreeNode current = q.poll();
-                
-                if(current.left != null){
-                        q.offer(current.left);
-                        arr.add(current.left.val);
-                    }else{
-                        arr.add(101);
-                    }
-                if(current.right != null){
-                    q.offer(current.right);
-                    arr.add(current.right.val);
-                    }else{
-                        arr.add(101);
-                    }
-            }
-            ArrayList<Integer> reverse = new ArrayList<>(arr);
-            Collections.reverse(reverse);
-            for(int i=0; i<arr.size(); i++){
-                System.out.println(arr.get(i));
-                if(arr.get(i) != reverse.get(i)){
-                    ans = false;
-                }
-            }
-
+        if (root==null) return false;
+        
+        return bc(root.left, root.right);
+    }
+    private boolean bc(TreeNode root1,TreeNode root2){
+        //if both null than symmetric
+        if(root1 == null && root2 == null){
+            return true;
         }
-        return ans;
+        // if this hit means both are not symmetric only one is symmetric
+        if(root1 == null || root2 == null){
+            return false;
+        }
+        if(root1.val != root2.val){
+            return false;
+        }
+        return bc(root1.left, root2.right) && bc(root1.right,root2.left);
+
     }
 }
