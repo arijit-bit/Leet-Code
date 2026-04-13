@@ -3,12 +3,11 @@ class Solution {
         int n = nums.length;
         int count = 0;
         for(int x=0; x<n; x++){
-            if(nums[x]==val){
-                nums[x]=51;
+            if(nums[x]!=val){
+                nums[count]=nums[x];
                 count++;
             }
         }
-        Arrays.sort(nums);
-        return n-count;
+        return count;
     }
 }
