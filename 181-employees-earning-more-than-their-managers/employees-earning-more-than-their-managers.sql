@@ -1,4 +1,14 @@
 # Write your MySQL query statement below
-select e.name as Employee from Employee e
-join Employee m on e.managerId=m.id
-where e.salary>m.salary
+select emp.name as Employee
+from 
+Employee emp
+inner join
+Employee mgr
+on emp.managerId = mgr.id
+where emp.salary>mgr.salary
+
+-- select * from
+-- Employee emp
+-- inner join
+-- Employee mgr
+-- on emp.managerId = mgr.id
