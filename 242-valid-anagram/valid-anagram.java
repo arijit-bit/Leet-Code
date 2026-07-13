@@ -3,11 +3,24 @@ class Solution {
         if(s.length() != t.length()){
             return false;
         }
-        char []arrs = s.toCharArray();
-        char []arrt = t.toCharArray();
+        HashMap<Character, Integer> map = new HashMap<>();
+        //insertion s each character
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+        //checking after reviewing s from hashmap using t
+        for(int i=0; i<t.length(); i++){
+            char ch = t.charAt(i);
+            if(!map.containsKey(ch)){
+                return false;
+            }
+            map.put(ch, map.get(ch)-1);
+            if(map.get(ch)<0){
+                return false;
+            }
+        }
+        return true;
 
-        Arrays.sort(arrs);
-        Arrays.sort(arrt);
-        return Arrays.equals(arrs,arrt);
     }
 }
