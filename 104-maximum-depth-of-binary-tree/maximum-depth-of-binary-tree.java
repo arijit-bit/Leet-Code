@@ -15,14 +15,14 @@
  */
 class Solution {
     public int maxDepth(TreeNode root) {
-        int ans = backtrack(root);
-        return ans;
+        return helper(root);
     }
-    protected int backtrack(TreeNode root){
-        if(root==null){return 0;}
-        int lh = backtrack(root.left);
-        int rh = backtrack(root.right);
-        return 1+Math.max(lh, rh);
-
+    protected int helper(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int lh = helper(root.left)+1;
+        int rh = helper(root.right)+1;
+        return Math.max(lh, rh);
     }
 }
