@@ -23,9 +23,10 @@ class Solution {
             int levelElement = q.size();
             List<Integer> level = new LinkedList<>();
             for(int i=0; i<levelElement; i++){
-                if(q.peek().left != null){q.offer(q.peek().left);}
-                if(q.peek().right != null){q.offer(q.peek().right);}
-                level.add(q.poll().val);
+                TreeNode curr = q.poll();
+                if(curr.left != null){q.offer(curr.left);}
+                if(curr.right != null){q.offer(curr.right);}
+                level.add(curr.val);
             }
             ans.add(level);
             
