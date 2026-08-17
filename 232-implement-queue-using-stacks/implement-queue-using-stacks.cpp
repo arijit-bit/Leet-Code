@@ -1,34 +1,42 @@
+#include <stack>
+
 class MyQueue {
+private:
+    std::stack<int> s1, s2;
+
 public:
-    vector<int>s1, s2;
-    MyQueue() {
-        
-    }
-    
+    // Push element to the back of queue
     void push(int x) {
-        while(!s1.empty()){
-            s2.push_back(s1.back());
-            s1.pop_back();
-        }
-        s1.push_back(x);
-        while(!s2.empty()){
-            s1.push_back(s2.back());
-            s2.pop_back();
-        }
+        s1.push(x);
     }
-    
+
+    // Remove element from front of queue
     int pop() {
-        int ans=s1.back();
-        s1.pop_back();
-        return ans;
+        if (s2.empty()) {
+            // Transfer all elements from s1 to s2
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        int front = s2.top();
+        s2.pop();
+        return front;
     }
-    
+
+    // Get the front element
     int peek() {
-        return s1.back();
+        if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        return s2.top();
     }
-    
+
+    // Check if queue is empty
     bool empty() {
-        return s1.empty();
-        
+        return s1.empty() && s2.empty();
     }
 };
