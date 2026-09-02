@@ -15,23 +15,16 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if (root==null) return false;
-        
-        return bc(root.left, root.right);
+        if(root==null) return false;
+        return helper(root.right, root.left);
     }
-    private boolean bc(TreeNode root1,TreeNode root2){
-        //if both null than symmetric
-        if(root1 == null && root2 == null){
-            return true;
+    protected boolean helper(TreeNode root1, TreeNode root2){
+        if(root1==null && root2==null){
+            return  true;
         }
-        // if this hit means both are not symmetric only one is symmetric
-        if(root1 == null || root2 == null){
+        if(root1==null || root2==null || root1.val!=root2.val){
             return false;
         }
-        if(root1.val != root2.val){
-            return false;
-        }
-        return bc(root1.left, root2.right) && bc(root1.right,root2.left);
-
+        return helper(root1.left, root2.right) && helper(root1.right, root2.left);
     }
 }
