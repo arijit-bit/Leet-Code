@@ -1,38 +1,35 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int n = piles.length;
         int largest = 0;
-        for(int i=0; i<n; i++){
-            largest = Math.max(largest, piles[i]);
+        for(int num : piles){
+            largest = Math.max(num, largest);
         }
-        int left = 1;
-        int right = largest;
-        int prev = largest;
-        int mid = largest;
-        while(left<=right){
-            mid = left + (right-left)/2;
-            int ans = possible(piles, h, mid);
-            if (ans != -1){
-                prev = mid;
-                right = mid-1;
+
+        int low = 1;
+        int high = largest;
+        int ans = largest;
+
+        while(low <= high){
+            int mid = low + (high - low)/2; // mid = eating capacity per hour
+            boolean result = check(piles, h, mid);
+            if(result){
+                ans = mid;
+                high = mid-1;
             }else{
-                left = mid+1;
+                low = mid+1;
             }
-
-
         }
-        return prev;
+        return ans;
     }
-    protected int possible(int[] piles, int h, int mid){
-        long count = 0;
-        for(int i=0; i<piles.length; i++){
-            double curr = (double) piles[i]/mid;
-            // System.out.println(curr);
-            count += (long)Math.ceil(curr);
+    protected boolean check(int[] piles, int h, int mid){
+        int timetaken = 0;
+        for(int num: piles){
+            timetaken += Math.ceil((double)num/(double)mid);
         }
-        if(count>h){
-            return -1;
+        // System.out.println(timetaken);
+        if(timetaken > h){
+            return false;
         }
-        return 1;
+        return true;
     }
 }
