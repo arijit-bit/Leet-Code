@@ -10,7 +10,7 @@ class Solution {
                 left++;
             }
             set.add(cur);
-            ans = Math.max(ans, set.size());
+            ans = Math.max(ans, i-left+1);
         }
         return ans;
     }
