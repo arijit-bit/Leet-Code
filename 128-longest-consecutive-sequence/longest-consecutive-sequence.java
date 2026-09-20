@@ -1,27 +1,25 @@
 class Solution {
     public int longestConsecutive(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
-
-        // want no duplicate value;
-        for(int num: nums){
+        for(int num:nums){
             set.add(num);
         }
-
+        int count = 1;
         int ans = 0;
-
-        for(int num : set){
-            // no previous sequence. it could be a start of a consecutive elements sequence.
-            if(!set.contains(num-1)){
-                int curr = num;
-                int count = 1;
-                
-                //Checking next consecutive element is avilable or not
-                while(set.contains(curr+1)){
-                    curr++;
+        for(int cur:set){
+            int temp = cur;
+            while(!set.contains(cur-1)){
+                if(set.contains(temp+1)){
                     count++;
+                    temp++;
+                }else{
+                    break;
                 }
-                ans = Math.max(count, ans);
             }
+            ans = Math.max(ans, count);
+            count = 1;
+
+
         }
         return ans;
     }
